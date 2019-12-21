@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { TextInput } from '../TextInput/TextInput';
 import { formReducer, defaultState } from '../reducer';
 import { setValue, Values, setError } from '../actions';
-import { validateRequired, validateMinMax } from '../validation';
+import { validateRequired, validateMinMax } from '../validation/validation';
 import { formData } from './formData';
 
 const validateName = (value: string): string | undefined => {
