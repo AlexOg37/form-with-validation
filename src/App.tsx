@@ -5,7 +5,7 @@ import { setValue, Values, setError } from './actions';
 import { validateRequired, validateMinMax } from './validation';
 
 const validateName = (value: string): string | undefined => {
-  return validateRequired(value) || validateMinMax(5, 10)(value)
+  return validateRequired(value) || validateMinMax(3, 10)(value)
 }
 
 const App: React.FC = () => {
