@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react';
-import { TextInput } from './TextInput';
-import { formReducer, defaultState } from './reducer';
-import { setValue, Values, setError } from './actions';
-import { validateRequired, validateMinMax } from './validation';
+import { TextInput } from '../TextInput/TextInput';
+import { formReducer, defaultState } from '../reducer';
+import { setValue, Values, setError } from '../actions';
+import { validateRequired, validateMinMax } from '../validation';
 
 const validateName = (value: string): string | undefined => {
   return validateRequired(value) || validateMinMax(2, 10)(value)
