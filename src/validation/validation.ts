@@ -1,7 +1,8 @@
 import {
   requiredMessage,
   wrongLengthMessage,
-  nonCapitalMessage
+  nonCapitalMessage,
+  latinLettersMessage
 } from "./errorMessages";
 
 export function validateRequired<T>(value: T): string | undefined {
@@ -14,6 +15,11 @@ export const validateMinMax = (min: number, max: number) =>
   }
 
 export const validateCapitalLetter = (value: string) => {
-  const rule = new RegExp(/\b([A-Z])([a-z]+)?\b/gm);
+  const rule = /\b([A-Z])([a-z]+)?\b/gm;
   return rule.test(value) ? undefined : nonCapitalMessage;
+}
+
+export const validateLatinLetters = (value: string) => {
+  const rule = /^[a-zA-Z]+$/;
+  return rule.test(value) ? undefined : latinLettersMessage;
 }

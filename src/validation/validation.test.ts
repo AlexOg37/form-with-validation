@@ -1,5 +1,15 @@
-import { validateRequired, validateMinMax, validateCapitalLetter } from "./validation";
-import { requiredMessage, wrongLengthMessage, nonCapitalMessage } from "./errorMessages";
+import { 
+  validateRequired,
+  validateMinMax,
+  validateCapitalLetter,
+  validateLatinLetters
+} from "./validation";
+import {
+  requiredMessage,
+  wrongLengthMessage,
+  nonCapitalMessage,
+  latinLettersMessage
+} from "./errorMessages";
 
 test('validateRequired returns error message for undefined and empty string', () => {
   expect(validateRequired('')).toBe(requiredMessage);
@@ -26,4 +36,16 @@ test("validateCapitalLetter returns error for string that starts from non-capita
 test("validateCapitalLetter returns undefined for string that starts from capital letter", () => {
   const testString = 'Capital';
   expect(validateCapitalLetter(testString)).toBe(undefined);
+});
+
+test("validateLatinLetters returns error for string that contains non-latin symbols", () => {
+  const withSpace = 'with spaces';
+  const withNumber = 'test1';
+  expect(validateLatinLetters(withSpace)).toBe(latinLettersMessage);
+  expect(validateLatinLetters(withNumber)).toBe(latinLettersMessage);
+});
+
+test("validateLatinLetters returns undefined for string that contains only latin symbols", () => {
+  const onlyLatin = 'testString';
+  expect(validateLatinLetters(onlyLatin)).toBe(undefined);
 });
