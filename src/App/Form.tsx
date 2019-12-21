@@ -3,12 +3,13 @@ import { TextInput } from '../TextInput/TextInput';
 import { formReducer, defaultState } from '../reducer';
 import { setValue, Values, setError } from '../actions';
 import { validateRequired, validateMinMax } from '../validation';
+import { formData } from './formData';
 
 const validateName = (value: string): string | undefined => {
   return validateRequired(value) || validateMinMax(2, 10)(value)
 }
 
-const App: React.FC = () => {
+const Form: React.FC = () => {
   const [state, dispatch] = useReducer(formReducer, defaultState);
   const { values, errors } = state;
 
@@ -23,35 +24,31 @@ const App: React.FC = () => {
     dispatch(setError(name as keyof Values, error));
   }
   
-  const isFormValid = () => {
-    const noErrors = (Object.keys(values) as Array<keyof typeof values>)
-      .every(k => errors[k] === '');
-    return noErrors;
-  }
+  const isFormValid = (Object.keys(values) as Array<keyof typeof values>)
+    .every(k => errors[k] === '');
 
+  const { nameLabel, surnameLabel, submitButton } = formData;
   return (
     <>
       <TextInput
-        label='First name'
+        label={nameLabel}
         name='name'
         value={values.name}
         onChange={handleTextFiledChange}
         onBlur={handleTextFiledTouch}
         error={errors.name}
       />
-      <br/>
       <TextInput
-        label='Last name'
+        label={surnameLabel}
         name='surname'
         value={values.surname}
         onChange={handleTextFiledChange}
         onBlur={handleTextFiledTouch}
         error={errors.surname}
       />
-      <br/>
-      <button type='submit' disabled={!isFormValid()}>Submit</button>
+      <button type='submit' disabled={!isFormValid}>{submitButton}</button>
     </>
   );
 }
 
-export default App;
+export default Form;

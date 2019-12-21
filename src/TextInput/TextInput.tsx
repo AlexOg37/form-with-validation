@@ -23,5 +23,6 @@ export const TextInput: React.FC<Props> = ({
       <label htmlFor={name}>{label}:</label>
       <input type='text' name={name} value={value} onChange={onChange} onBlur={onBlur}/>
       {error && <label id={`${name}-error`}>{error}</label>}
+      <br/>
     </>
 )};
