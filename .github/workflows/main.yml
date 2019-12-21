@@ -27,6 +27,6 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BASE_BRANCH: ${{GITHUB_REF##*/}}
+        BASE_BRANCH: build-setup-2
         BRANCH: gh-pages
         FOLDER: build
