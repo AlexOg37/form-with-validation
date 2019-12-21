@@ -1,5 +1,5 @@
 import React from 'react';
-import { Values } from './actions';
+import { Values } from '../actions';
 
 type Props = {
   error?: string;
@@ -22,6 +22,6 @@ export const TextInput: React.FC<Props> = ({
     <>
       <label htmlFor={name}>{label}:</label>
       <input type='text' name={name} value={value} onChange={onChange} onBlur={onBlur}/>
-      {error && <label>{error}</label>}
+      {error && <label id={`${name}-error`}>{error}</label>}
     </>
 )};
