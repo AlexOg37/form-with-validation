@@ -17,7 +17,7 @@ test('validateRequired returns error message for undefined and empty string', ()
 });
 
 test('validateRequired returns undefined for non-empty string', () => {
-  expect(validateRequired('non-empty string value')).toBe(undefined);
+  expect(validateRequired('non-empty string value')).toBe('');
 });
 
 test("validateMinMax returns error message for string that doesn't fit length limitations", () => {
@@ -25,7 +25,7 @@ test("validateMinMax returns error message for string that doesn't fit length li
 });
 
 test("validateMinMax returns undefined for string that fits length limitations", () => {
-  expect(validateMinMax(1,100)('test string')).toBe(undefined);
+  expect(validateMinMax(1,100)('test string')).toBe('');
 });
 
 test("validateCapitalLetter returns error for string that starts from non-capital letter", () => {
@@ -37,9 +37,9 @@ test("validateCapitalLetter returns undefined for string that starts from capita
   const testString = 'Capital';
   const testStringWithNumber = 'C2apital';
   const testStringWithTwoUppercaseLetters = 'CApital';
-  expect(validateCapitalLetter(testString)).toBe(undefined);
-  expect(validateCapitalLetter(testStringWithNumber)).toBe(undefined);
-  expect(validateCapitalLetter(testStringWithTwoUppercaseLetters)).toBe(undefined);
+  expect(validateCapitalLetter(testString)).toBe('');
+  expect(validateCapitalLetter(testStringWithNumber)).toBe('');
+  expect(validateCapitalLetter(testStringWithTwoUppercaseLetters)).toBe('');
 });
 
 test("validateLatinLetters returns error for string that contains non-latin symbols", () => {
@@ -51,5 +51,5 @@ test("validateLatinLetters returns error for string that contains non-latin symb
 
 test("validateLatinLetters returns undefined for string that contains only latin symbols", () => {
   const onlyLatin = 'testString';
-  expect(validateLatinLetters(onlyLatin)).toBe(undefined);
+  expect(validateLatinLetters(onlyLatin)).toBe('');
 });
