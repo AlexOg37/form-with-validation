@@ -15,7 +15,7 @@ export const validateMinMax = (min: number, max: number) =>
   }
 
 export const validateCapitalLetter = (value: string) => {
-  const rule = /\b([A-Z])([a-z]+)?\b/gm;
+  const rule = /\b([A-Z])([a-z0-9]+)?\b/gm;
   return rule.test(value) ? undefined : nonCapitalMessage;
 }
 
