@@ -36,8 +36,10 @@ test("validateCapitalLetter returns error for string that starts from non-capita
 test("validateCapitalLetter returns undefined for string that starts from capital letter", () => {
   const testString = 'Capital';
   const testStringWithNumber = 'C2apital';
+  const testStringWithTwoUppercaseLetters = 'CApital';
   expect(validateCapitalLetter(testString)).toBe(undefined);
   expect(validateCapitalLetter(testStringWithNumber)).toBe(undefined);
+  expect(validateCapitalLetter(testStringWithTwoUppercaseLetters)).toBe(undefined);
 });
 
 test("validateLatinLetters returns error for string that contains non-latin symbols", () => {
