@@ -5,24 +5,38 @@ import { setValue, Values, setError } from '../actions';
 import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters } from '../validation/validation';
 import { formData } from './formData';
 
-const validateName = (value: string): string | undefined => {
+const validateName = (value: string): string => {
   return validateRequired(value) || validateMinMax(2, 10)(value) ||
     validateCapitalLetter(value) || validateLatinLetters(value);
 }
+
+const validatePassport = (value: string): string => {
+  return validateRequired(value) || validateMinMax(6, 9)(value);
+}
+
+type Validation = (value: string) => string;
+
+type FieldElement = HTMLInputElement | HTMLSelectElement;
 
 const Form: React.FC = () => {
   const [state, dispatch] = useReducer(formReducer, defaultState);
   const { values, errors } = state;
 
-  const handleTextFiledChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-    dispatch(setValue(name as keyof Values, value));
+  const handleFiledChange = <T extends FieldElement>(
+    e: React.FormEvent<T>,
+    fieldName: keyof Values
+  ) => {
+    dispatch(setValue(fieldName, e.currentTarget.value));
   }
 
-  const handleTextFiledTouch = (e: React.FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-    const error = validateName(value || '') || '';
-    dispatch(setError(name as keyof Values, error));
+  const handleFiledTouch = <T extends FieldElement, V>(
+    e: React.FormEvent<T>,
+    fieldName: keyof Values,
+    validation: Validation
+  ) => {
+    const { value } = e.currentTarget;
+    const error = validation(value || '');
+    dispatch(setError(fieldName, error));
   }
   
   const isFormValid = (Object.keys(values) as Array<keyof typeof values>)
@@ -35,24 +49,24 @@ const Form: React.FC = () => {
         label={nameLabel}
         name='name'
         value={values.name}
-        onChange={handleTextFiledChange}
-        onBlur={handleTextFiledTouch}
+        onChange={e => handleFiledChange(e, 'name')}
+        onBlur={e => handleFiledTouch(e, 'name', validateName)}
         error={errors.name}
       />
       <TextInput
         label={surnameLabel}
         name='surname'
         value={values.surname}
-        onChange={handleTextFiledChange}
-        onBlur={handleTextFiledTouch}
+        onChange={e => handleFiledChange(e, 'surname')}
+        onBlur={e => handleFiledTouch(e, 'surname', validateName)}
         error={errors.surname}
       />
       <TextInput
         label={passportNumber}
         name='passport'
         value={values.passport}
-        onChange={handleTextFiledChange}
-        onBlur={handleTextFiledTouch}
+        onChange={e => handleFiledChange(e, 'passport')}
+        onBlur={e => handleFiledTouch(e, 'passport', validatePassport)}
         error={errors.passport}
       />
       <button type='submit' disabled={!isFormValid}>{submitButton}</button>

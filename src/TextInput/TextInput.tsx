@@ -1,10 +1,9 @@
 import React from 'react';
-import { Values } from '../actions';
 
 type Props = {
   error?: string;
   label: string;
-  name: keyof Values;
+  name: string;
   value: string;
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   onBlur: (e: React.FormEvent<HTMLInputElement>) => void;
