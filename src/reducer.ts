@@ -3,6 +3,7 @@ import { Values, State, Actions } from "./actions";
 const defaultValues: Values = {
   name: '',
   surname: '',
+  passport: '',
 }
 
 export const defaultState: State = {

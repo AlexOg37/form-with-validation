@@ -28,7 +28,7 @@ const Form: React.FC = () => {
   const isFormValid = (Object.keys(values) as Array<keyof typeof values>)
     .every(k => errors[k] === '');
 
-  const { nameLabel, surnameLabel, submitButton } = formData;
+  const { nameLabel, surnameLabel, submitButton, passportNumber } = formData;
   return (
     <>
       <TextInput
@@ -46,6 +46,14 @@ const Form: React.FC = () => {
         onChange={handleTextFiledChange}
         onBlur={handleTextFiledTouch}
         error={errors.surname}
+      />
+      <TextInput
+        label={passportNumber}
+        name='passport'
+        value={values.passport}
+        onChange={handleTextFiledChange}
+        onBlur={handleTextFiledTouch}
+        error={errors.passport}
       />
       <button type='submit' disabled={!isFormValid}>{submitButton}</button>
     </>

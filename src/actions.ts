@@ -1,6 +1,7 @@
 export type Values = {
   name: string;
   surname: string;
+  passport: string;
 }
 
 export type Errors = {

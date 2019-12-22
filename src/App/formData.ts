@@ -1,5 +1,6 @@
 export const formData = {
   nameLabel: 'First name',
   surnameLabel: 'Last name',
-  submitButton: 'Submit'
+  passportNumber: 'Passport Number',
+  submitButton: 'Submit',
 };
