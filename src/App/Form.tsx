@@ -4,6 +4,7 @@ import { formReducer, defaultState } from '../reducer';
 import { setValue, Values, setError } from '../actions';
 import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters } from '../validation/validation';
 import { formData } from './formData';
+import { SelectField, tempSelectOptions } from '../Select/SelectField';
 
 const validateName = (value: string): string => {
   return validateRequired(value) || validateMinMax(2, 10)(value) ||
@@ -68,6 +69,14 @@ const Form: React.FC = () => {
         onChange={e => handleFiledChange(e, 'passport')}
         onBlur={e => handleFiledTouch(e, 'passport', validatePassport)}
         error={errors.passport}
+      />
+      <SelectField
+        label='Issuing country'
+        name='country'
+        value={values.country}
+        onChange={value => dispatch(setValue('country', value))}
+        onBlur={() => dispatch(setError('country', values.country))}
+        options={tempSelectOptions}
       />
       <button type='submit' disabled={!isFormValid}>{submitButton}</button>
     </>
