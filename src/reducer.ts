@@ -4,7 +4,8 @@ const defaultValues: Values = {
   name: '',
   surname: '',
   passport: '',
-  country: ''
+  country: '',
+  nationality: ''
 }
 
 export const defaultState: State = {

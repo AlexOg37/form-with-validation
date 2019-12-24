@@ -3,6 +3,7 @@ export type Values = {
   surname: string;
   passport: string;
   country: string;
+  nationality: string;
 }
 
 export type Errors = {

@@ -78,6 +78,14 @@ const Form: React.FC = () => {
         onBlur={() => dispatch(setError('country', values.country))}
         options={tempSelectOptions}
       />
+      <SelectField
+        label='Nationality'
+        name='nationality'
+        value={values.nationality}
+        onChange={value => dispatch(setValue('nationality', value))}
+        onBlur={() => dispatch(setError('nationality', values.nationality))}
+        options={tempSelectOptions}
+      />
       <button type='submit' disabled={!isFormValid}>{submitButton}</button>
     </>
   );
