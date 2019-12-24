@@ -4,6 +4,9 @@ export type Values = {
   passport: string;
   country: string;
   nationality: string;
+  sex: string;
+  dateOfBirth: string;
+  passportExpiration: string;
 }
 
 export type Errors = {

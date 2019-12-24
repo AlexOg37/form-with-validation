@@ -86,6 +86,30 @@ const Form: React.FC = () => {
         onBlur={() => dispatch(setError('nationality', values.nationality))}
         options={tempSelectOptions}
       />
+      <SelectField
+        label='Sex'
+        name='sex'
+        value={values.sex}
+        onChange={value => dispatch(setValue('sex', value))}
+        onBlur={() => dispatch(setError('sex', values.nationality))}
+        options={tempSelectOptions}
+      />
+      <TextInput
+        label='Date of birth'
+        name='date-of-birth'
+        value={values.dateOfBirth}
+        onChange={e => handleFiledChange(e, 'dateOfBirth')}
+        onBlur={e => handleFiledTouch(e, 'dateOfBirth', validatePassport)}
+        error={errors.dateOfBirth}
+      />
+      <TextInput
+        label='Passport expiration date'
+        name='passport-expiration'
+        value={values.passportExpiration}
+        onChange={e => handleFiledChange(e, 'passportExpiration')}
+        onBlur={e => handleFiledTouch(e, 'passportExpiration', validatePassport)}
+        error={errors.passportExpiration}
+      />
       <button type='submit' disabled={!isFormValid}>{submitButton}</button>
     </>
   );

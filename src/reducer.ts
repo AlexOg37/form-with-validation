@@ -5,7 +5,10 @@ const defaultValues: Values = {
   surname: '',
   passport: '',
   country: '',
-  nationality: ''
+  nationality: '',
+  sex: '',
+  dateOfBirth: '',
+  passportExpiration: '' 
 }
 
 export const defaultState: State = {
