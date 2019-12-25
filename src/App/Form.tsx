@@ -3,8 +3,10 @@ import { TextInput } from '../TextInput/TextInput';
 import { formReducer, defaultState } from '../reducer';
 import { setValue, Values, setError } from '../actions';
 import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters } from '../validation/validation';
-import { formData } from './formData';
-import { SelectField, tempSelectOptions } from '../Select/SelectField';
+import { formData, sexOptions } from './formData';
+import { SelectField } from '../Select/SelectField';
+import { countries } from './countries';
+import { nationalities } from './nationalities';
 
 const validateName = (value: string): string => {
   return validateRequired(value) || validateMinMax(2, 10)(value) ||
@@ -43,11 +45,10 @@ const Form: React.FC = () => {
   const isFormValid = (Object.keys(values) as Array<keyof typeof values>)
     .every(k => errors[k] === '');
 
-  const { nameLabel, surnameLabel, submitButton, passportNumber } = formData;
   return (
     <>
       <TextInput
-        label={nameLabel}
+        label={formData.nameLabel}
         name='name'
         value={values.name}
         onChange={e => handleFiledChange(e, 'name')}
@@ -55,7 +56,7 @@ const Form: React.FC = () => {
         error={errors.name}
       />
       <TextInput
-        label={surnameLabel}
+        label={formData.surnameLabel}
         name='surname'
         value={values.surname}
         onChange={e => handleFiledChange(e, 'surname')}
@@ -63,7 +64,7 @@ const Form: React.FC = () => {
         error={errors.surname}
       />
       <TextInput
-        label={passportNumber}
+        label={formData.passportNumber}
         name='passport'
         value={values.passport}
         onChange={e => handleFiledChange(e, 'passport')}
@@ -71,31 +72,31 @@ const Form: React.FC = () => {
         error={errors.passport}
       />
       <SelectField
-        label='Issuing country'
+        label={formData.issuingCountry}
         name='country'
         value={values.country}
         onChange={value => dispatch(setValue('country', value))}
         onBlur={() => dispatch(setError('country', values.country))}
-        options={tempSelectOptions}
+        options={countries}
       />
       <SelectField
-        label='Nationality'
+        label={formData.nationality}
         name='nationality'
         value={values.nationality}
         onChange={value => dispatch(setValue('nationality', value))}
         onBlur={() => dispatch(setError('nationality', values.nationality))}
-        options={tempSelectOptions}
+        options={nationalities}
       />
       <SelectField
-        label='Sex'
+        label={formData.sex}
         name='sex'
         value={values.sex}
         onChange={value => dispatch(setValue('sex', value))}
         onBlur={() => dispatch(setError('sex', values.nationality))}
-        options={tempSelectOptions}
+        options={sexOptions}
       />
       <TextInput
-        label='Date of birth'
+        label={formData.dateOfBirth}
         name='date-of-birth'
         value={values.dateOfBirth}
         onChange={e => handleFiledChange(e, 'dateOfBirth')}
@@ -103,14 +104,14 @@ const Form: React.FC = () => {
         error={errors.dateOfBirth}
       />
       <TextInput
-        label='Passport expiration date'
+        label={formData.dateOfBirth}
         name='passport-expiration'
         value={values.passportExpiration}
         onChange={e => handleFiledChange(e, 'passportExpiration')}
         onBlur={e => handleFiledTouch(e, 'passportExpiration', validatePassport)}
         error={errors.passportExpiration}
       />
-      <button type='submit' disabled={!isFormValid}>{submitButton}</button>
+      <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
     </>
   );
 }
