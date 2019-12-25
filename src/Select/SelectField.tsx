@@ -32,7 +32,7 @@ export const SelectField: React.FC<Props> = ({
       >
         {optionsWithPlaceholder.map(option =>{
           const isPlaceholder = option === placeholder;
-          return <option key={`${name}-${option}`} hidden={isPlaceholder} disabled={isPlaceholder} value={option}>
+          return <option key={`${name}-${option}`} disabled={isPlaceholder} value={option}>
             {option}
           </option>;
         })}

@@ -5,7 +5,7 @@ import {
   latinLettersMessage
 } from "./errorMessages";
 
-export function validateRequired<T>(value: T): string {
+export const validateRequired = <T>(value: T): string => {
   return !value ? requiredMessage : '';
 }
 

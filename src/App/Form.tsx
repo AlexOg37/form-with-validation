@@ -26,18 +26,17 @@ const Form: React.FC = () => {
   const { values, errors } = state;
 
   const handleFiledChange = <T extends FieldElement>(
-    e: React.FormEvent<T>,
+    value: string,
     fieldName: keyof Values
   ) => {
-    dispatch(setValue(fieldName, e.currentTarget.value));
+    dispatch(setValue(fieldName, value || ''));
   }
 
   const handleFiledTouch = <T extends FieldElement, V>(
-    e: React.FormEvent<T>,
+    value: string,
     fieldName: keyof Values,
     validation: Validation
   ) => {
-    const { value } = e.currentTarget;
     const error = validation(value || '');
     dispatch(setError(fieldName, error));
   }
@@ -51,64 +50,67 @@ const Form: React.FC = () => {
         label={formData.nameLabel}
         name='name'
         value={values.name}
-        onChange={e => handleFiledChange(e, 'name')}
-        onBlur={e => handleFiledTouch(e, 'name', validateName)}
+        onChange={e => handleFiledChange(e.currentTarget.value, 'name')}
+        onBlur={e => handleFiledTouch(e.currentTarget.value, 'name', validateName)}
         error={errors.name}
       />
       <TextInput
         label={formData.surnameLabel}
         name='surname'
         value={values.surname}
-        onChange={e => handleFiledChange(e, 'surname')}
-        onBlur={e => handleFiledTouch(e, 'surname', validateName)}
+        onChange={e => handleFiledChange(e.currentTarget.value, 'surname')}
+        onBlur={e => handleFiledTouch(e.currentTarget.value, 'surname', validateName)}
         error={errors.surname}
       />
       <TextInput
         label={formData.passportNumber}
         name='passport'
         value={values.passport}
-        onChange={e => handleFiledChange(e, 'passport')}
-        onBlur={e => handleFiledTouch(e, 'passport', validatePassport)}
+        onChange={e => handleFiledChange(e.currentTarget.value, 'passport')}
+        onBlur={e => handleFiledTouch(e.currentTarget.value, 'passport', validatePassport)}
         error={errors.passport}
       />
       <SelectField
         label={formData.issuingCountry}
         name='country'
         value={values.country}
-        onChange={value => dispatch(setValue('country', value))}
-        onBlur={() => dispatch(setError('country', values.country))}
+        onChange={value => handleFiledChange(value, 'country')}
+        onBlur={() => handleFiledTouch(values.country, 'country', validateRequired)}
         options={countries}
+        error={errors.country}
       />
       <SelectField
         label={formData.nationality}
         name='nationality'
         value={values.nationality}
-        onChange={value => dispatch(setValue('nationality', value))}
-        onBlur={() => dispatch(setError('nationality', values.nationality))}
+        onChange={value => handleFiledChange(value, 'nationality')}
+        onBlur={() => handleFiledTouch(values.nationality, 'nationality', validateRequired)}
         options={nationalities}
+        error={errors.nationality}
       />
       <SelectField
         label={formData.sex}
         name='sex'
         value={values.sex}
-        onChange={value => dispatch(setValue('sex', value))}
-        onBlur={() => dispatch(setError('sex', values.nationality))}
+        onChange={value => handleFiledChange(value, 'sex')}
+        onBlur={() => handleFiledTouch(values.sex, 'sex', validateRequired)}
         options={sexOptions}
+        error={errors.sex}
       />
       <TextInput
         label={formData.dateOfBirth}
         name='date-of-birth'
         value={values.dateOfBirth}
-        onChange={e => handleFiledChange(e, 'dateOfBirth')}
-        onBlur={e => handleFiledTouch(e, 'dateOfBirth', validatePassport)}
+        onChange={e => handleFiledChange(e.currentTarget.value, 'dateOfBirth')}
+        onBlur={e => handleFiledTouch(e.currentTarget.value, 'dateOfBirth', validatePassport)}
         error={errors.dateOfBirth}
       />
       <TextInput
         label={formData.dateOfBirth}
         name='passport-expiration'
         value={values.passportExpiration}
-        onChange={e => handleFiledChange(e, 'passportExpiration')}
-        onBlur={e => handleFiledTouch(e, 'passportExpiration', validatePassport)}
+        onChange={e => handleFiledChange(e.currentTarget.value, 'passportExpiration')}
+        onBlur={e => handleFiledTouch(e.currentTarget.value, 'passportExpiration', validatePassport)}
         error={errors.passportExpiration}
       />
       <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
