@@ -1,49 +1,34 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { TextInput } from '../TextInput/TextInput';
-import { formReducer, defaultState } from '../reducer';
-import { setValue, Values, setError } from '../actions';
-import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters } from '../validation/validation';
 import { formData, sexOptions } from './formData';
 import { SelectField } from '../Select/SelectField';
 import { countries } from './countries';
 import { nationalities } from './nationalities';
-
-const validateName = (value: string): string => {
-  return validateRequired(value) || validateMinMax(2, 10)(value) ||
-    validateCapitalLetter(value) || validateLatinLetters(value);
-}
-
-const validatePassport = (value: string): string => {
-  return validateRequired(value) || validateMinMax(6, 9)(value);
-}
+import { Values, Errors } from '../actions';
 
 type Validation = (value: string) => string;
 
-type FieldElement = HTMLInputElement | HTMLSelectElement;
+type Props = {
+  errors: Errors;
+  isFormValid: boolean;
+  handleFiledChange: (value: string, fieldName: keyof Values) => void;
+  handleFiledTouch: (fieldName: keyof Values, validation: Validation) => void;
+  validateName: Validation;
+  validatePassport: Validation;
+  validateSelectFields: Validation;
+  values: Values;
+}
 
-const Form: React.FC = () => {
-  const [state, dispatch] = useReducer(formReducer, defaultState);
-  const { values, errors } = state;
-
-  const handleFiledChange = <T extends FieldElement>(
-    value: string,
-    fieldName: keyof Values
-  ) => {
-    dispatch(setValue(fieldName, value || ''));
-  }
-
-  const handleFiledTouch = <T extends FieldElement, V>(
-    value: string,
-    fieldName: keyof Values,
-    validation: Validation
-  ) => {
-    const error = validation(value || '');
-    dispatch(setError(fieldName, error));
-  }
-  
-  const isFormValid = (Object.keys(values) as Array<keyof typeof values>)
-    .every(k => errors[k] === '');
-
+const FormPresentation: React.FC<Props> = ({
+  errors,
+  isFormValid,
+  handleFiledChange,
+  handleFiledTouch,
+  validateName,
+  validatePassport,
+  validateSelectFields,
+  values
+}) => {
   return (
     <>
       <TextInput
@@ -51,7 +36,7 @@ const Form: React.FC = () => {
         name='first-name'
         value={values.name}
         onChange={e => handleFiledChange(e.currentTarget.value, 'name')}
-        onBlur={e => handleFiledTouch(e.currentTarget.value, 'name', validateName)}
+        onBlur={e => handleFiledTouch('name', validateName)}
         error={errors.name}
       />
       <TextInput
@@ -59,7 +44,7 @@ const Form: React.FC = () => {
         name='last-name'
         value={values.surname}
         onChange={e => handleFiledChange(e.currentTarget.value, 'surname')}
-        onBlur={e => handleFiledTouch(e.currentTarget.value, 'surname', validateName)}
+        onBlur={e => handleFiledTouch('surname', validateName)}
         error={errors.surname}
       />
       <TextInput
@@ -67,7 +52,7 @@ const Form: React.FC = () => {
         name='passport'
         value={values.passport}
         onChange={e => handleFiledChange(e.currentTarget.value, 'passport')}
-        onBlur={e => handleFiledTouch(e.currentTarget.value, 'passport', validatePassport)}
+        onBlur={e => handleFiledTouch('passport', validatePassport)}
         error={errors.passport}
       />
       <SelectField
@@ -75,7 +60,7 @@ const Form: React.FC = () => {
         name='country'
         value={values.country}
         onChange={value => handleFiledChange(value, 'country')}
-        onBlur={() => handleFiledTouch(values.country, 'country', validateRequired)}
+        onBlur={() => handleFiledTouch('country', validateSelectFields)}
         options={countries}
         error={errors.country}
       />
@@ -84,7 +69,7 @@ const Form: React.FC = () => {
         name='nationality'
         value={values.nationality}
         onChange={value => handleFiledChange(value, 'nationality')}
-        onBlur={() => handleFiledTouch(values.nationality, 'nationality', validateRequired)}
+        onBlur={() => handleFiledTouch('nationality', validateSelectFields)}
         options={nationalities}
         error={errors.nationality}
       />
@@ -93,7 +78,7 @@ const Form: React.FC = () => {
         name='sex'
         value={values.sex}
         onChange={value => handleFiledChange(value, 'sex')}
-        onBlur={() => handleFiledTouch(values.sex, 'sex', validateRequired)}
+        onBlur={() => handleFiledTouch('sex', validateSelectFields)}
         options={sexOptions}
         error={errors.sex}
       />
@@ -102,7 +87,7 @@ const Form: React.FC = () => {
         name='date-of-birth'
         value={values.dateOfBirth}
         onChange={e => handleFiledChange(e.currentTarget.value, 'dateOfBirth')}
-        onBlur={e => handleFiledTouch(e.currentTarget.value, 'dateOfBirth', validatePassport)}
+        onBlur={e => handleFiledTouch('dateOfBirth', validatePassport)}
         error={errors.dateOfBirth}
       />
       <TextInput
@@ -110,7 +95,7 @@ const Form: React.FC = () => {
         name='passport-expiration'
         value={values.passportExpiration}
         onChange={e => handleFiledChange(e.currentTarget.value, 'passportExpiration')}
-        onBlur={e => handleFiledTouch(e.currentTarget.value, 'passportExpiration', validatePassport)}
+        onBlur={e => handleFiledTouch('passportExpiration', validatePassport)}
         error={errors.passportExpiration}
       />
       <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
@@ -118,4 +103,4 @@ const Form: React.FC = () => {
   );
 }
 
-export default Form;
+export default FormPresentation;
