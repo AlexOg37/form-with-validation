@@ -5,8 +5,17 @@ import { SelectField } from '../Select/SelectField';
 import { countries } from './countries';
 import { nationalities } from './nationalities';
 import { Values, Errors } from '../actions';
+import styled from 'styled-components';
 
 export type Validation = (value: string) => string;
+
+const FormWrapper = styled.form`
+  width: 600px;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  margin: auto;
+`;
 
 type Props = {
   errors: Errors;
@@ -36,7 +45,7 @@ const FormPresentation: React.FC<Props> = ({
   values
 }) => {
   return (
-    <form onSubmit={handleFormSubmit}>
+    <FormWrapper onSubmit={handleFormSubmit}>
       <TextInput
         label={formData.nameLabel}
         name='first-name'
@@ -106,7 +115,7 @@ const FormPresentation: React.FC<Props> = ({
         disabled={errors.dateOfBirth !== ''}
       />
       <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
-    </form>
+    </FormWrapper>
   );
 }
 
