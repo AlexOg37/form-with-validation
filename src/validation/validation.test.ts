@@ -4,7 +4,8 @@ import {
   validateCapitalLetter,
   validateLatinLetters,
   validateDateFormat,
-  validateMinAge
+  validateMinAge,
+  validateMaxAge
 } from "./validation";
 import {
   requiredMessage,
@@ -82,32 +83,60 @@ describe('validateDateFormat', () => {
     const wrongDate = '30/13/2016';
     expect(validateDateFormat(wrongDate)).toBe(dateFormatError);
   });
+});
 
-  describe('validateMinAge', () => {
-    const minAgeError = 'minAgeError';
-    
-    it('returns empty string for age that is bigger than given min age', () => {
-      const minAge = 0;
-      const currentAge = minAge + 1;
-      const dateOfBirth = new Date();
-      dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
-      expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe('');
-    });
+describe('validateMinAge', () => {
+  const minAgeError = 'minAgeError';
   
-    it('returns empty string for age that is equal to given min age', () => {
-      const minAge = 2;
-      const currentAge = minAge;
-      const dateOfBirth = new Date();
-      dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
-      expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe('');
-    });
-  
-    it('returns error for age that is lower than give limit', () => {
-      const minAge = 2;
-      const currentAge = minAge - 1;
-      const dateOfBirth = new Date();
-      dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
-      expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe(minAgeError);
-    });
+  it('returns empty string for age that is bigger than given min age', () => {
+    const minAge = 0;
+    const currentAge = minAge + 1;
+    const dateOfBirth = new Date();
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+    expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe('');
+  });
+
+  it('returns empty string for age that is equal to given min age', () => {
+    const minAge = 2;
+    const currentAge = minAge;
+    const dateOfBirth = new Date();
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+    expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe('');
+  });
+
+  it('returns error for age that is less than give min age', () => {
+    const minAge = 2;
+    const currentAge = minAge - 1;
+    const dateOfBirth = new Date();
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+    expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe(minAgeError);
+  });
+});
+
+describe('validateMaxAge', () => {
+  const maxAgeError = 'maxAgeError';
+      
+  it('returns empty string for age that is less than given max age', () => {
+    const maxAge = 2;
+    const currentAge = maxAge - 1;
+    const dateOfBirth = new Date();
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+    expect(validateMaxAge(maxAge, maxAgeError)(dateOfBirth.toDateString())).toBe('');
+  });
+
+  it('returns error for age that is equal to given max age', () => {
+    const maxAge = 2;
+    const currentAge = maxAge;
+    const dateOfBirth = new Date();
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+    expect(validateMaxAge(maxAge, maxAgeError)(dateOfBirth.toDateString())).toBe(maxAgeError);
+  });
+
+  it('returns error for age that is bigger than give max age', () => {
+    const maxAge = 2;
+    const currentAge = maxAge + 1;
+    const dateOfBirth = new Date();
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+    expect(validateMaxAge(maxAge, maxAgeError)(dateOfBirth.toDateString())).toBe(maxAgeError);
   });
 });

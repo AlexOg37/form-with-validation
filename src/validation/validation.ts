@@ -33,7 +33,13 @@ export const validateDateFormat = (date: string): string => {
 }
 
 export const validateMinAge = (minAge: number, minAgeError: string) =>
-(dateOfBirth: string) => {
-  const currentAge = new Date().getFullYear() - new Date(dateOfBirth).getFullYear();
-  return currentAge >= minAge ? '' : minAgeError;
-}
+  (dateOfBirth: string) => {
+    const currentAge = new Date().getFullYear() - new Date(dateOfBirth).getFullYear();
+    return currentAge >= minAge ? '' : minAgeError;
+  }
+
+export   const validateMaxAge = (maxAge: number, maxAgeError: string) =>
+  (dateOfBirth: string) => {
+    const currentAge = new Date().getFullYear() - new Date(dateOfBirth).getFullYear();
+    return currentAge < maxAge ? '' : maxAgeError;
+  }
