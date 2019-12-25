@@ -2,6 +2,7 @@ import React from 'react';
 
 type Props = {
   error?: string;
+  disabled?: boolean;
   label: string;
   name: string;
   value: string;
@@ -11,6 +12,7 @@ type Props = {
 
 export const TextInput: React.FC<Props> = ({
   error,
+  disabled,
   label,
   name,
   value,
@@ -20,7 +22,7 @@ export const TextInput: React.FC<Props> = ({
   return (
     <>
       <label htmlFor={name}>{label}:</label>
-      <input type='text' name={name} id={name} value={value} onChange={onChange} onBlur={onBlur}/>
+      <input disabled={disabled} type='text' name={name} id={name} value={value} onChange={onChange} onBlur={onBlur}/>
       {error && <label id={`${name}-error`}>{error}</label>}
       <br/>
     </>

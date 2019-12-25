@@ -95,12 +95,13 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.dateOfBirth}
       />
       <TextInput
-        label={formData.dateOfBirth}
+        label={formData.passportExpirationDate}
         name='passport-expiration'
         value={values.passportExpiration}
         onChange={e => handleFiledChange(e.currentTarget.value, 'passportExpiration')}
         onBlur={e => handleFiledTouch('passportExpiration', validateExpirationDate)}
         error={errors.passportExpiration}
+        disabled={errors.dateOfBirth !== ''}
       />
       <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
     </>

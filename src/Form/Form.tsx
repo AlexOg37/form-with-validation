@@ -11,6 +11,8 @@ import {
 import FormPresentation, { Validation } from './FormPresentation';
 import { minAgeError, maxAgeError } from '../validation/errorMessages';
 import { validateMinAge, validateMaxAge } from '../validation/minMaxAge';
+import { validateExpirationDate } from '../validation/expirationDate';
+import { parseDate } from '../validation/dateFormat';
 
 const validateName = (value: string): string => {
   return validateRequired(value) || validateMinMax(2, 10)(value) ||
@@ -30,12 +32,11 @@ const validateDOBField = (dob: string): string => {
     validateMaxAge(65, maxAgeError)(dob);
 }
 
-// const validateExpirationDate = (dateOfBirth: string) => (expirationDate: string): string => {
-//   return validateDateFields(expirationDate) ||
-//     (moment(expirationDate) > moment() ? '' : 'Passport is expired') ||
-//     (moment(expirationDate) > moment(dateOfBirth) ? '' : `Passport expiration date can't be earlier than date of birth`) ||
-//     (moment().add(10) );
-// }
+const getExpirationFieldValidation = (dob: string) =>
+  (expirationDate: string) => {
+    return validateDateFields(expirationDate) ||
+      validateExpirationDate(dob, parseDate().format())(expirationDate);
+  }
 
 const Form: React.FC = () => {
   const [state, dispatch] = useReducer(formReducer, defaultState);
@@ -66,7 +67,7 @@ const Form: React.FC = () => {
       handleFiledTouch={handleFiledTouch}
       isFormValid={isFormValid}
       validateDOBField={validateDOBField}
-      validateExpirationDate={validateDOBField}
+      validateExpirationDate={getExpirationFieldValidation(values.dateOfBirth)}
       validateName={validateName}
       validatePassport={validatePassport}
       validateSelectFields={validateRequired}
