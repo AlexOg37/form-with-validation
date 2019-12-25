@@ -20,7 +20,7 @@ export const TextInput: React.FC<Props> = ({
   return (
     <>
       <label htmlFor={name}>{label}:</label>
-      <input type='text' name={name} value={value} onChange={onChange} onBlur={onBlur}/>
+      <input type='text' name={name} id={name} value={value} onChange={onChange} onBlur={onBlur}/>
       {error && <label id={`${name}-error`}>{error}</label>}
       <br/>
     </>

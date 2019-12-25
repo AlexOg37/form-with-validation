@@ -48,7 +48,7 @@ const Form: React.FC = () => {
     <>
       <TextInput
         label={formData.nameLabel}
-        name='name'
+        name='first-name'
         value={values.name}
         onChange={e => handleFiledChange(e.currentTarget.value, 'name')}
         onBlur={e => handleFiledTouch(e.currentTarget.value, 'name', validateName)}
@@ -56,7 +56,7 @@ const Form: React.FC = () => {
       />
       <TextInput
         label={formData.surnameLabel}
-        name='surname'
+        name='last-name'
         value={values.surname}
         onChange={e => handleFiledChange(e.currentTarget.value, 'surname')}
         onBlur={e => handleFiledTouch(e.currentTarget.value, 'surname', validateName)}
