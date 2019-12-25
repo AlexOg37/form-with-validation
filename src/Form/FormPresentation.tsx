@@ -6,7 +6,7 @@ import { countries } from './countries';
 import { nationalities } from './nationalities';
 import { Values, Errors } from '../actions';
 
-type Validation = (value: string) => string;
+export type Validation = (value: string) => string;
 
 type Props = {
   errors: Errors;
@@ -14,6 +14,7 @@ type Props = {
   handleFiledChange: (value: string, fieldName: keyof Values) => void;
   handleFiledTouch: (fieldName: keyof Values, validation: Validation) => void;
   validateName: Validation;
+  validateDateFields: Validation;
   validatePassport: Validation;
   validateSelectFields: Validation;
   values: Values;
@@ -24,6 +25,7 @@ const FormPresentation: React.FC<Props> = ({
   isFormValid,
   handleFiledChange,
   handleFiledTouch,
+  validateDateFields,
   validateName,
   validatePassport,
   validateSelectFields,
@@ -87,7 +89,7 @@ const FormPresentation: React.FC<Props> = ({
         name='date-of-birth'
         value={values.dateOfBirth}
         onChange={e => handleFiledChange(e.currentTarget.value, 'dateOfBirth')}
-        onBlur={e => handleFiledTouch('dateOfBirth', validatePassport)}
+        onBlur={e => handleFiledTouch('dateOfBirth', validateDateFields)}
         error={errors.dateOfBirth}
       />
       <TextInput
@@ -95,7 +97,7 @@ const FormPresentation: React.FC<Props> = ({
         name='passport-expiration'
         value={values.passportExpiration}
         onChange={e => handleFiledChange(e.currentTarget.value, 'passportExpiration')}
-        onBlur={e => handleFiledTouch('passportExpiration', validatePassport)}
+        onBlur={e => handleFiledTouch('passportExpiration', validateDateFields)}
         error={errors.passportExpiration}
       />
       <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>

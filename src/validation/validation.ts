@@ -2,8 +2,11 @@ import {
   requiredMessage,
   wrongLengthMessage,
   nonCapitalMessage,
-  latinLettersMessage
+  latinLettersMessage,
+  dateFormatError
 } from "./errorMessages";
+import moment from 'moment';
+import { dateFormat } from "./dateFormat";
 
 export const validateRequired = <T>(value: T): string => {
   return !value ? requiredMessage : '';
@@ -22,4 +25,9 @@ export const validateCapitalLetter = (value: string) => {
 export const validateLatinLetters = (value: string) => {
   const rule = /^[a-zA-Z]+$/;
   return rule.test(value) ? '' : latinLettersMessage;
+}
+
+export const validateDate = (date: string): string => {
+  const isDateValid = moment(date, dateFormat, true).isValid();
+  return isDateValid ? '' : dateFormatError;
 }

@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react';
 import { formReducer, defaultState } from '../reducer';
 import { setValue, Values, setError } from '../actions';
-import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters } from '../validation/validation';
-import FormPresentation from './FormPresentation';
+import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters, validateDate } from '../validation/validation';
+import FormPresentation, { Validation } from './FormPresentation';
 
 const validateName = (value: string): string => {
   return validateRequired(value) || validateMinMax(2, 10)(value) ||
@@ -13,7 +13,9 @@ const validatePassport = (value: string): string => {
   return validateRequired(value) || validateMinMax(6, 9)(value);
 }
 
-type Validation = (value: string) => string;
+const validateDateFields = (date: string): string => {
+  return validateRequired(date) || validateDate(date);
+}
 
 type FieldElement = HTMLInputElement | HTMLSelectElement;
 
@@ -21,14 +23,14 @@ const Form: React.FC = () => {
   const [state, dispatch] = useReducer(formReducer, defaultState);
   const { values, errors } = state;
 
-  const handleFiledChange = <T extends FieldElement>(
+  const handleFiledChange = (
     value: string,
     fieldName: keyof Values
   ) => {
     dispatch(setValue(fieldName, value || ''));
   }
 
-  const handleFiledTouch = <T extends FieldElement, V>(
+  const handleFiledTouch = (
     fieldName: keyof Values,
     validation: Validation
   ) => {
@@ -45,6 +47,7 @@ const Form: React.FC = () => {
       handleFiledChange={handleFiledChange}
       handleFiledTouch={handleFiledTouch}
       isFormValid={isFormValid}
+      validateDateFields={validateDateFields}
       validateName={validateName}
       validatePassport={validatePassport}
       validateSelectFields={validateRequired}
