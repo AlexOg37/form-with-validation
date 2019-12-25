@@ -14,8 +14,8 @@ type Props = {
   handleFiledChange: (value: string, fieldName: keyof Values) => void;
   handleFiledTouch: (fieldName: keyof Values, validation: Validation) => void;
   validateName: Validation;
+  validateExpirationDate: Validation;
   validateDOBField: Validation;
-  validateDateFields: Validation;
   validatePassport: Validation;
   validateSelectFields: Validation;
   values: Values;
@@ -26,8 +26,8 @@ const FormPresentation: React.FC<Props> = ({
   isFormValid,
   handleFiledChange,
   handleFiledTouch,
+  validateExpirationDate,
   validateDOBField,
-  validateDateFields,
   validateName,
   validatePassport,
   validateSelectFields,
@@ -99,7 +99,7 @@ const FormPresentation: React.FC<Props> = ({
         name='passport-expiration'
         value={values.passportExpiration}
         onChange={e => handleFiledChange(e.currentTarget.value, 'passportExpiration')}
-        onBlur={e => handleFiledTouch('passportExpiration', validateDateFields)}
+        onBlur={e => handleFiledTouch('passportExpiration', validateExpirationDate)}
         error={errors.passportExpiration}
       />
       <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
