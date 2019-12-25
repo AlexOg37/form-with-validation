@@ -1,8 +1,9 @@
 import React, { useReducer } from 'react';
 import { formReducer, defaultState } from '../reducer';
 import { setValue, Values, setError } from '../actions';
-import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters, validateDate } from '../validation/validation';
+import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters, validateDateFormat, validateMinAge } from '../validation/validation';
 import FormPresentation, { Validation } from './FormPresentation';
+import { minAgeError } from '../validation/errorMessages';
 
 const validateName = (value: string): string => {
   return validateRequired(value) || validateMinMax(2, 10)(value) ||
@@ -14,10 +15,12 @@ const validatePassport = (value: string): string => {
 }
 
 const validateDateFields = (date: string): string => {
-  return validateRequired(date) || validateDate(date);
+  return validateRequired(date) || validateDateFormat(date);
 }
 
-type FieldElement = HTMLInputElement | HTMLSelectElement;
+const validateDOBField = (dob: string): string => {
+  return validateDateFields(dob) || validateMinAge(18, minAgeError)(dob);
+}
 
 const Form: React.FC = () => {
   const [state, dispatch] = useReducer(formReducer, defaultState);
@@ -47,6 +50,7 @@ const Form: React.FC = () => {
       handleFiledChange={handleFiledChange}
       handleFiledTouch={handleFiledTouch}
       isFormValid={isFormValid}
+      validateDOBField={validateDOBField}
       validateDateFields={validateDateFields}
       validateName={validateName}
       validatePassport={validatePassport}

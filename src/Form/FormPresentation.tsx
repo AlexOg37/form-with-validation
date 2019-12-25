@@ -14,6 +14,7 @@ type Props = {
   handleFiledChange: (value: string, fieldName: keyof Values) => void;
   handleFiledTouch: (fieldName: keyof Values, validation: Validation) => void;
   validateName: Validation;
+  validateDOBField: Validation;
   validateDateFields: Validation;
   validatePassport: Validation;
   validateSelectFields: Validation;
@@ -25,6 +26,7 @@ const FormPresentation: React.FC<Props> = ({
   isFormValid,
   handleFiledChange,
   handleFiledTouch,
+  validateDOBField,
   validateDateFields,
   validateName,
   validatePassport,
@@ -89,7 +91,7 @@ const FormPresentation: React.FC<Props> = ({
         name='date-of-birth'
         value={values.dateOfBirth}
         onChange={e => handleFiledChange(e.currentTarget.value, 'dateOfBirth')}
-        onBlur={e => handleFiledTouch('dateOfBirth', validateDateFields)}
+        onBlur={e => handleFiledTouch('dateOfBirth', validateDOBField)}
         error={errors.dateOfBirth}
       />
       <TextInput

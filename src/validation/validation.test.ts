@@ -3,7 +3,8 @@ import {
   validateMinMax,
   validateCapitalLetter,
   validateLatinLetters,
-  validateDate
+  validateDateFormat,
+  validateMinAge
 } from "./validation";
 import {
   requiredMessage,
@@ -56,29 +57,57 @@ test("validateLatinLetters returns empty string for string that contains only la
   expect(validateLatinLetters(onlyLatin)).toBe('');
 });
 
-describe('validateDate', () => {
+describe('validateDateFormat', () => {
   it('validates date with dd/mm/yyyy format', () => {
     const correctDateFormat = '29/02/2020';
-    expect(validateDate(correctDateFormat)).toBe('');
+    expect(validateDateFormat(correctDateFormat)).toBe('');
   });
 
   it('returns error for date with wrong delimiters', () => {
     const dateWithSpaces = '01 02 2014';
-    expect(validateDate(dateWithSpaces)).toBe(dateFormatError);
+    expect(validateDateFormat(dateWithSpaces)).toBe(dateFormatError);
   });
 
   it('returns error for 29th of Feb in non leap year', () => {
     const wrongDate = '29/02/2014';
-    expect(validateDate(wrongDate)).toBe(dateFormatError);
+    expect(validateDateFormat(wrongDate)).toBe(dateFormatError);
   });
 
   it('returns error for 30th of Feb in leap year', () => {
     const wrongDate = '30/02/2016';
-    expect(validateDate(wrongDate)).toBe(dateFormatError);
+    expect(validateDateFormat(wrongDate)).toBe(dateFormatError);
   });
 
   it("returns error for month that doesn't exits", () => {
     const wrongDate = '30/13/2016';
-    expect(validateDate(wrongDate)).toBe(dateFormatError);
+    expect(validateDateFormat(wrongDate)).toBe(dateFormatError);
+  });
+
+  describe('validateMinAge', () => {
+    const minAgeError = 'minAgeError';
+    
+    it('returns empty string for age that is bigger than given min age', () => {
+      const minAge = 0;
+      const currentAge = minAge + 1;
+      const dateOfBirth = new Date();
+      dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+      expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe('');
+    });
+  
+    it('returns empty string for age that is equal to given min age', () => {
+      const minAge = 2;
+      const currentAge = minAge;
+      const dateOfBirth = new Date();
+      dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+      expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe('');
+    });
+  
+    it('returns error for age that is lower than give limit', () => {
+      const minAge = 2;
+      const currentAge = minAge - 1;
+      const dateOfBirth = new Date();
+      dateOfBirth.setFullYear(dateOfBirth.getFullYear() - currentAge);
+      expect(validateMinAge(minAge, minAgeError)(dateOfBirth.toDateString())).toBe(minAgeError);
+    });
   });
 });

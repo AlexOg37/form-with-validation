@@ -27,7 +27,13 @@ export const validateLatinLetters = (value: string) => {
   return rule.test(value) ? '' : latinLettersMessage;
 }
 
-export const validateDate = (date: string): string => {
+export const validateDateFormat = (date: string): string => {
   const isDateValid = moment(date, dateFormat, true).isValid();
   return isDateValid ? '' : dateFormatError;
+}
+
+export const validateMinAge = (minAge: number, minAgeError: string) =>
+(dateOfBirth: string) => {
+  const currentAge = new Date().getFullYear() - new Date(dateOfBirth).getFullYear();
+  return currentAge >= minAge ? '' : minAgeError;
 }
