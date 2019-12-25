@@ -56,6 +56,10 @@ const Form: React.FC = () => {
     const error = validation(values[fieldName]);
     dispatch(setError(fieldName, error));
   }
+
+  const handleFormSubmit = () => {
+    console.log('Form submitted!');
+  }
   
   const isFormValid = (Object.keys(values) as Array<keyof typeof values>)
     .every(k => errors[k] === '');
@@ -65,6 +69,7 @@ const Form: React.FC = () => {
       errors={errors}
       handleFiledChange={handleFiledChange}
       handleFiledTouch={handleFiledTouch}
+      handleFormSubmit={handleFormSubmit}
       isFormValid={isFormValid}
       validateDOBField={validateDOBField}
       validateExpirationDate={getExpirationFieldValidation(values.dateOfBirth)}

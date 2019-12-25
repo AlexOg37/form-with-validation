@@ -13,6 +13,7 @@ type Props = {
   isFormValid: boolean;
   handleFiledChange: (value: string, fieldName: keyof Values) => void;
   handleFiledTouch: (fieldName: keyof Values, validation: Validation) => void;
+  handleFormSubmit: () => void;
   validateName: Validation;
   validateExpirationDate: Validation;
   validateDOBField: Validation;
@@ -26,6 +27,7 @@ const FormPresentation: React.FC<Props> = ({
   isFormValid,
   handleFiledChange,
   handleFiledTouch,
+  handleFormSubmit,
   validateExpirationDate,
   validateDOBField,
   validateName,
@@ -34,7 +36,7 @@ const FormPresentation: React.FC<Props> = ({
   values
 }) => {
   return (
-    <>
+    <form onSubmit={handleFormSubmit}>
       <TextInput
         label={formData.nameLabel}
         name='first-name'
@@ -104,7 +106,7 @@ const FormPresentation: React.FC<Props> = ({
         disabled={errors.dateOfBirth !== ''}
       />
       <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
-    </>
+    </form>
   );
 }
 
