@@ -1,9 +1,16 @@
 import React, { useReducer } from 'react';
 import { formReducer, defaultState } from '../reducer';
 import { setValue, Values, setError } from '../actions';
-import { validateRequired, validateMinMax, validateCapitalLetter, validateLatinLetters, validateDateFormat, validateMinAge, validateMaxAge } from '../validation/validation';
+import {
+  validateRequired,
+  validateMinMax,
+  validateCapitalLetter,
+  validateLatinLetters,
+  validateDateFormat
+} from '../validation/validation';
 import FormPresentation, { Validation } from './FormPresentation';
 import { minAgeError, maxAgeError } from '../validation/errorMessages';
+import { validateMinAge, validateMaxAge } from '../validation/minMaxAge';
 
 const validateName = (value: string): string => {
   return validateRequired(value) || validateMinMax(2, 10)(value) ||

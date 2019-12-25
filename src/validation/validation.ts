@@ -5,8 +5,7 @@ import {
   latinLettersMessage,
   dateFormatError
 } from "./errorMessages";
-import moment from 'moment';
-import { supportedDateFormat } from "./dateFormat";
+import { parseDate } from "./dateFormat";
 
 export const validateRequired = <T>(value: T): string => {
   return !value ? requiredMessage : '';
@@ -28,17 +27,6 @@ export const validateLatinLetters = (value: string) => {
 }
 
 export const validateDateFormat = (date: string): string => {
-  const isDateValid = moment(date, supportedDateFormat, true).isValid();
+  const isDateValid = parseDate(date, true).isValid();
   return isDateValid ? '' : dateFormatError;
 }
-
-const getCurrentAgeByDOB = (dob: string): number =>
-  moment().year() - moment(dob, supportedDateFormat, true).year();
-
-export const validateMinAge = (minAge: number, minAgeError: string) =>
-  (dateOfBirth: string): string =>
-    getCurrentAgeByDOB(dateOfBirth) >= minAge ? '' : minAgeError;
-
-export   const validateMaxAge = (maxAge: number, maxAgeError: string) =>
-  (dateOfBirth: string): string =>
-    getCurrentAgeByDOB(dateOfBirth) < maxAge ? '' : maxAgeError;
