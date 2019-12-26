@@ -26,7 +26,7 @@ export const FormFieldWrapper = styled.div<{ error: string | undefined; }>`
   }
   input:disabled, select:disabled {
     background: #e9e9e9;
-    border-color: lightgrey;
+    border-color: lightgray;
     cursor: not-allowed;
   }
   select {
@@ -36,5 +36,9 @@ export const FormFieldWrapper = styled.div<{ error: string | undefined; }>`
   .error {
     font-size: 11px;
     color: red;
+  }
+  .disabled-label {
+    font-size: 11px;
+    color: gray;
   }
 `;

@@ -5,6 +5,7 @@ import { Required } from '../Form/Required';
 type Props = {
   error?: string;
   disabled?: boolean;
+  disabledLabel?: string;
   label: string;
   name: string;
   required?: boolean;
@@ -16,6 +17,7 @@ type Props = {
 export const TextInput: React.FC<Props> = ({
   error,
   disabled,
+  disabledLabel,
   label,
   name,
   required,
@@ -35,6 +37,9 @@ export const TextInput: React.FC<Props> = ({
         onChange={onChange}
         onBlur={onBlur}
       />
+      {!error && disabled && disabledLabel &&
+        <label className='disabled-label' id={`${name}-disabled-label`}>{disabledLabel}</label>
+      }
       {error && <label className='error' id={`${name}-error`}>{error}</label>}
       <br/>
     </FormFieldWrapper>

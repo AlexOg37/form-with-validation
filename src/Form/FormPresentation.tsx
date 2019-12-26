@@ -8,6 +8,7 @@ import { Values, Errors } from '../actions';
 import styled from 'styled-components';
 import { Required } from './Required';
 import { sexOptions } from './sexOptions';
+import { disabledExpirationDate } from '../validation/errorMessages';
 
 export type Validation = (value: string) => string;
 
@@ -133,6 +134,7 @@ const FormPresentation: React.FC<Props> = ({
         onBlur={e => handleFiledTouch('passportExpiration', validateExpirationDate)}
         error={errors.passportExpiration}
         disabled={errors.dateOfBirth !== ''}
+        disabledLabel={disabledExpirationDate}
       />
       <Required> - is required field</Required>
       <button className='submit' type='submit' disabled={!isFormValid}>{formLabels.submitButton}</button>
