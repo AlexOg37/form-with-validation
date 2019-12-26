@@ -6,6 +6,7 @@ import { countries } from './countries';
 import { nationalities } from './nationalities';
 import { Values, Errors } from '../actions';
 import styled from 'styled-components';
+import { Required } from './Required';
 
 export type Validation = (value: string) => string;
 
@@ -21,6 +22,7 @@ const FormWrapper = styled.form`
     max-width: 300px;
     width: 100%;
     margin: auto;
+    margin-top: 20px;
     height: 30px;
     border-radius: 4px;
   }
@@ -58,6 +60,7 @@ const FormPresentation: React.FC<Props> = ({
       <TextInput
         label={formData.nameLabel}
         name='first-name'
+        required={true}
         value={values.name}
         onChange={e => handleFiledChange(e.currentTarget.value, 'name')}
         onBlur={e => handleFiledTouch('name', validateName)}
@@ -66,6 +69,7 @@ const FormPresentation: React.FC<Props> = ({
       <TextInput
         label={formData.surnameLabel}
         name='last-name'
+        required={true}
         value={values.surname}
         onChange={e => handleFiledChange(e.currentTarget.value, 'surname')}
         onBlur={e => handleFiledTouch('surname', validateName)}
@@ -74,6 +78,7 @@ const FormPresentation: React.FC<Props> = ({
       <TextInput
         label={formData.passportNumber}
         name='passport'
+        required={true}
         value={values.passport}
         onChange={e => handleFiledChange(e.currentTarget.value, 'passport')}
         onBlur={e => handleFiledTouch('passport', validatePassport)}
@@ -82,6 +87,7 @@ const FormPresentation: React.FC<Props> = ({
       <SelectField
         label={formData.issuingCountry}
         name='country'
+        required={true}
         value={values.country}
         onChange={value => handleFiledChange(value, 'country')}
         onBlur={() => handleFiledTouch('country', validateSelectFields)}
@@ -91,6 +97,7 @@ const FormPresentation: React.FC<Props> = ({
       <SelectField
         label={formData.nationality}
         name='nationality'
+        required={true}
         value={values.nationality}
         onChange={value => handleFiledChange(value, 'nationality')}
         onBlur={() => handleFiledTouch('nationality', validateSelectFields)}
@@ -100,6 +107,7 @@ const FormPresentation: React.FC<Props> = ({
       <SelectField
         label={formData.sex}
         name='sex'
+        required={true}
         value={values.sex}
         onChange={value => handleFiledChange(value, 'sex')}
         onBlur={() => handleFiledTouch('sex', validateSelectFields)}
@@ -109,6 +117,7 @@ const FormPresentation: React.FC<Props> = ({
       <TextInput
         label={formData.dateOfBirth}
         name='date-of-birth'
+        required={true}
         value={values.dateOfBirth}
         onChange={e => handleFiledChange(e.currentTarget.value, 'dateOfBirth')}
         onBlur={e => handleFiledTouch('dateOfBirth', validateDOBField)}
@@ -117,12 +126,14 @@ const FormPresentation: React.FC<Props> = ({
       <TextInput
         label={formData.passportExpirationDate}
         name='passport-expiration'
+        required={true}
         value={values.passportExpiration}
         onChange={e => handleFiledChange(e.currentTarget.value, 'passportExpiration')}
         onBlur={e => handleFiledTouch('passportExpiration', validateExpirationDate)}
         error={errors.passportExpiration}
         disabled={errors.dateOfBirth !== ''}
       />
+      <Required> - is required field</Required>
       <button className='submit' type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
     </FormWrapper>
   );

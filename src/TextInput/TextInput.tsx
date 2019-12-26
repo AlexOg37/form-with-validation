@@ -1,11 +1,13 @@
 import React from 'react';
 import { FormFieldWrapper } from '../Form/FormFieldWrapper';
+import { Required } from '../Form/Required';
 
 type Props = {
   error?: string;
   disabled?: boolean;
   label: string;
   name: string;
+  required?: boolean;
   value: string;
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   onBlur: (e: React.FormEvent<HTMLInputElement>) => void;
@@ -16,13 +18,14 @@ export const TextInput: React.FC<Props> = ({
   disabled,
   label,
   name,
+  required,
   value,
   onChange,
   onBlur
 }) => {
   return (
     <FormFieldWrapper error={error} disabled={!!disabled}>
-      <label htmlFor={name}>{label}:</label>
+      <label htmlFor={name}>{label}{required && <Required/>}:</label>
       <input
         disabled={disabled}
         type='text'

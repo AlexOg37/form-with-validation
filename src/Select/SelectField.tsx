@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormFieldWrapper } from '../Form/FormFieldWrapper';
+import { Required } from '../Form/Required';
 
 type Props = {
   error?: string;
@@ -9,6 +10,7 @@ type Props = {
   onBlur: () => void;
   options: string[];
   placeholder?: string;
+  required?: boolean;
   value: string;
 }
 
@@ -20,12 +22,13 @@ export const SelectField: React.FC<Props> = ({
   onBlur,
   options,
   placeholder = 'Please Select',
+  required,
   value,
 }) => {
   const optionsWithPlaceholder = [placeholder, ...options];
   return (
     <FormFieldWrapper error={error} disabled={false}>
-      <label htmlFor={name}>{label}:</label>
+      <label htmlFor={name}>{label}{required && <Required/>}:</label>
       <select
         value={value || optionsWithPlaceholder[0]}
         onChange={e => onChange(e.currentTarget.value || '')}
