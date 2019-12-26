@@ -30,6 +30,8 @@ export const SelectField: React.FC<Props> = ({
     <FormFieldWrapper error={error}>
       <label htmlFor={name}>{label}{required && <Required/>}:</label>
       <select
+        id={name}
+        name={name}
         value={value || optionsWithPlaceholder[0]}
         onChange={e => onChange(e.currentTarget.value || '')}
         onBlur={e => onBlur()}
