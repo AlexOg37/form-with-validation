@@ -1,5 +1,8 @@
 import { parseDate } from "./dateFormat";
 
+export const minAge = 7;
+export const maxAge = 110;
+
 const getCurrentAgeByDOB = (dob: string): number =>
   parseDate().year() - parseDate(dob, true).year();
 

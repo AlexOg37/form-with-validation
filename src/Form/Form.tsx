@@ -10,7 +10,7 @@ import {
 } from '../validation/validation';
 import FormPresentation, { Validation } from './FormPresentation';
 import { minAgeError, maxAgeError } from '../validation/errorMessages';
-import { validateMinAge, validateMaxAge } from '../validation/minMaxAge';
+import { validateMinAge, validateMaxAge, minAge, maxAge } from '../validation/minMaxAge';
 import { validateExpirationDate } from '../validation/expirationDate';
 import { parseDate } from '../validation/dateFormat';
 
@@ -28,8 +28,8 @@ const validateDateFields = (date: string): string => {
 }
 
 const validateDOBField = (dob: string): string => {
-  return validateDateFields(dob) || validateMinAge(18, minAgeError)(dob) ||
-    validateMaxAge(65, maxAgeError)(dob);
+  return validateDateFields(dob) || validateMinAge(minAge, minAgeError)(dob) ||
+    validateMaxAge(maxAge, maxAgeError)(dob);
 }
 
 const getExpirationFieldValidation = (dob: string) =>
