@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormFieldWrapper } from '../Form/FormFieldWrapper';
 
 type Props = {
   error?: string;
@@ -20,10 +21,18 @@ export const TextInput: React.FC<Props> = ({
   onBlur
 }) => {
   return (
-    <>
+    <FormFieldWrapper error={error} disabled={!!disabled}>
       <label htmlFor={name}>{label}:</label>
-      <input disabled={disabled} type='text' name={name} id={name} value={value} onChange={onChange} onBlur={onBlur}/>
-      {error && <label id={`${name}-error`}>{error}</label>}
+      <input
+        disabled={disabled}
+        type='text'
+        name={name}
+        id={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+      {error && <label className='error' id={`${name}-error`}>{error}</label>}
       <br/>
-    </>
+    </FormFieldWrapper>
 )};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormFieldWrapper } from '../Form/FormFieldWrapper';
 
 type Props = {
   error?: string;
@@ -23,7 +24,7 @@ export const SelectField: React.FC<Props> = ({
 }) => {
   const optionsWithPlaceholder = [placeholder, ...options];
   return (
-    <>
+    <FormFieldWrapper error={error} disabled={false}>
       <label htmlFor={name}>{label}:</label>
       <select
         value={value || optionsWithPlaceholder[0]}
@@ -37,7 +38,7 @@ export const SelectField: React.FC<Props> = ({
           </option>;
         })}
       </select>
-      {error && <label id={`${name}-error`}>{error}</label>}
+      {error && <label className='error' id={`${name}-error`}>{error}</label>}
       <br/>
-    </>
+    </FormFieldWrapper>
 )};

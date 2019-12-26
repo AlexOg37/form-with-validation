@@ -10,11 +10,20 @@ import styled from 'styled-components';
 export type Validation = (value: string) => string;
 
 const FormWrapper = styled.form`
-  width: 600px;
+  max-width: 600px;
   display: flex;
   align-content: center;
   flex-direction: column;
   margin: auto;
+  padding: 20px;
+  border: 1px solid;
+  .submit {
+    max-width: 300px;
+    width: 100%;
+    margin: auto;
+    height: 30px;
+    border-radius: 4px;
+  }
 `;
 
 type Props = {
@@ -114,7 +123,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.passportExpiration}
         disabled={errors.dateOfBirth !== ''}
       />
-      <button type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
+      <button className='submit' type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
     </FormWrapper>
   );
 }
