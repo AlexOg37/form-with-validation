@@ -1,12 +1,13 @@
 import React from 'react';
 import { TextInput } from '../TextInput/TextInput';
-import { formData, sexOptions } from './formData';
+import { formLabels } from './formLabels';
 import { SelectField } from '../Select/SelectField';
 import { countries } from './countries';
 import { nationalities } from './nationalities';
 import { Values, Errors } from '../actions';
 import styled from 'styled-components';
 import { Required } from './Required';
+import { sexOptions } from './sexOptions';
 
 export type Validation = (value: string) => string;
 
@@ -58,7 +59,7 @@ const FormPresentation: React.FC<Props> = ({
   return (
     <FormWrapper onSubmit={handleFormSubmit}>
       <TextInput
-        label={formData.nameLabel}
+        label={formLabels.nameLabel}
         name='first-name'
         required={true}
         value={values.name}
@@ -67,7 +68,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.name}
       />
       <TextInput
-        label={formData.surnameLabel}
+        label={formLabels.surnameLabel}
         name='last-name'
         required={true}
         value={values.surname}
@@ -76,7 +77,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.surname}
       />
       <TextInput
-        label={formData.passportNumber}
+        label={formLabels.passportNumber}
         name='passport'
         required={true}
         value={values.passport}
@@ -85,7 +86,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.passport}
       />
       <SelectField
-        label={formData.issuingCountry}
+        label={formLabels.issuingCountry}
         name='country'
         required={true}
         value={values.country}
@@ -95,7 +96,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.country}
       />
       <SelectField
-        label={formData.nationality}
+        label={formLabels.nationality}
         name='nationality'
         required={true}
         value={values.nationality}
@@ -105,7 +106,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.nationality}
       />
       <SelectField
-        label={formData.sex}
+        label={formLabels.sex}
         name='sex'
         required={true}
         value={values.sex}
@@ -115,7 +116,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.sex}
       />
       <TextInput
-        label={formData.dateOfBirth}
+        label={formLabels.dateOfBirth}
         name='date-of-birth'
         required={true}
         value={values.dateOfBirth}
@@ -124,7 +125,7 @@ const FormPresentation: React.FC<Props> = ({
         error={errors.dateOfBirth}
       />
       <TextInput
-        label={formData.passportExpirationDate}
+        label={formLabels.passportExpirationDate}
         name='passport-expiration'
         required={true}
         value={values.passportExpiration}
@@ -134,7 +135,7 @@ const FormPresentation: React.FC<Props> = ({
         disabled={errors.dateOfBirth !== ''}
       />
       <Required> - is required field</Required>
-      <button className='submit' type='submit' disabled={!isFormValid}>{formData.submitButton}</button>
+      <button className='submit' type='submit' disabled={!isFormValid}>{formLabels.submitButton}</button>
     </FormWrapper>
   );
 }

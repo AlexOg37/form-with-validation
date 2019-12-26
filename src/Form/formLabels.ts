@@ -1,4 +1,4 @@
-export const formData = {
+export const formLabels = {
   nameLabel: 'First name',
   surnameLabel: 'Last name',
   passportNumber: 'Passport number',
@@ -9,5 +9,3 @@ export const formData = {
   passportExpirationDate: 'Passport expiration date',
   submitButton: 'Submit',
 };
-
-export const sexOptions = ['Male', 'Female', 'Not specified'];
