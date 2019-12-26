@@ -27,7 +27,7 @@ export const SelectField: React.FC<Props> = ({
 }) => {
   const optionsWithPlaceholder = [placeholder, ...options];
   return (
-    <FormFieldWrapper error={error} disabled={false}>
+    <FormFieldWrapper error={error}>
       <label htmlFor={name}>{label}{required && <Required/>}:</label>
       <select
         value={value || optionsWithPlaceholder[0]}

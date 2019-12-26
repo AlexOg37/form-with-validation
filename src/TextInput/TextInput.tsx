@@ -24,7 +24,7 @@ export const TextInput: React.FC<Props> = ({
   onBlur
 }) => {
   return (
-    <FormFieldWrapper error={error} disabled={!!disabled}>
+    <FormFieldWrapper error={error}>
       <label htmlFor={name}>{label}{required && <Required/>}:</label>
       <input
         disabled={disabled}
