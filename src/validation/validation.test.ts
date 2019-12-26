@@ -7,10 +7,10 @@ import {
 } from "./validation";
 import {
   requiredMessage,
-  wrongLengthMessage,
   nonCapitalMessage,
   latinLettersMessage,
-  dateFormatError
+  dateFormatError,
+  getMinLengthMessage
 } from "./errorMessages";
 
 describe('validateRequired', () => {
@@ -26,7 +26,7 @@ describe('validateRequired', () => {
 
 describe('validateMinMax', () => {
   it("returns error message for string that doesn't fit length limitations", () => {
-    expect(validateMinMax(1,5)('')).toBe(wrongLengthMessage);
+    expect(validateMinMax(1,5)('')).toBe(getMinLengthMessage(1));
   });
   
   it("returns empty string for string that fits length limitations", () => {

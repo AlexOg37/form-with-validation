@@ -1,15 +1,18 @@
 import {
   requiredMessage,
-  wrongLengthMessage,
   nonCapitalMessage,
   latinLettersMessage,
   dateFormatError,
   minAgeError,
-  maxAgeError
+  maxAgeError,
+  getMinLengthMessage,
+  getMaxLengthMessage
 } from "./errorMessages";
 import { parseDate } from "./dateFormat";
 import { minAge, validateMaxAge, validateMinAge, maxAge } from "./minMaxAge";
 import { validateExpirationDate } from "./expirationDate";
+import { minNameLength, maxNameLength } from "./nameValidationRules";
+import { minPassportIdLength, maxPassportIdLength } from "./passportValidationRules";
 
 export const validateRequired = <T>(value: T): string => {
   return !value ? requiredMessage : '';
@@ -17,7 +20,13 @@ export const validateRequired = <T>(value: T): string => {
 
 export const validateMinMax = (min: number, max: number) =>
   (value: string): string => {
-    return (value.length < min || value.length > max) ? wrongLengthMessage : '';
+    if (value.length < min) {
+      return getMinLengthMessage(min);
+    }
+    if (value.length > max) {
+      return getMaxLengthMessage(max);
+    }
+    return '';
   }
 
 export const validateCapitalLetter = (value: string) => {
@@ -36,12 +45,12 @@ export const validateDateFormat = (date: string): string => {
 }
 
 export const validateName = (value: string): string => {
-  return validateRequired(value) || validateMinMax(2, 10)(value) ||
+  return validateRequired(value) || validateMinMax(minNameLength, maxNameLength)(value) ||
     validateCapitalLetter(value) || validateLatinLetters(value);
 }
 
 export const validatePassport = (value: string): string => {
-  return validateRequired(value) || validateMinMax(6, 9)(value);
+  return validateRequired(value) || validateMinMax(minPassportIdLength, maxPassportIdLength)(value);
 }
 
 const validateDateFields = (date: string): string => {

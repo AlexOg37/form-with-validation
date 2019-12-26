@@ -3,7 +3,8 @@ import { yearsPassportIsValid, minYearsToGetPassport } from "./passportValidatio
 import { minAge, maxAge } from "./minMaxAge";
 
 export const requiredMessage = 'Required';
-export const wrongLengthMessage = 'Wrong length';
+export const getMinLengthMessage = (minLength: number) => `The text entered less than minimum length ${minLength}`;
+export const getMaxLengthMessage = (maxLength: number) => `The text entered exceeds the maximum length ${maxLength}`;
 export const nonCapitalMessage = 'Should start from capital letter';
 export const latinLettersMessage = 'Should contains only latin letters';
 export const dateFormatError = `Doesn't match ${supportedDateFormat} or this date doesn't exists`;
