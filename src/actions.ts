@@ -36,5 +36,11 @@ export const setError = <T extends keyof Values>(fieldName: T, error: Values[T])
   payload: { fieldName, error }
 });
 
+type ResetFormAction = {
+  type: 'RESET-FORM'
+}
+export const resetForm = (): ResetFormAction => ({
+  type: 'RESET-FORM',
+});
 
-export type Actions = SetErrorAction | SetValueAction;
+export type Actions = SetErrorAction | SetValueAction | ResetFormAction;

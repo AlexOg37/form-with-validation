@@ -31,7 +31,7 @@ type Props = {
   isFormValid: boolean;
   handleFiledChange: (value: string, fieldName: keyof Values) => void;
   handleFiledTouch: (fieldName: keyof Values, validation: Validation) => void;
-  handleFormSubmit: () => void;
+  handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   validateName: Validation;
   validateExpirationDate: Validation;
   validateDOBField: Validation;

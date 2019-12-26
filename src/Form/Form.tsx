@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
-import { formReducer, defaultState } from '../reducer';
-import { setValue, Values, setError } from '../actions';
+import { formReducer, defaultState } from '../formReducer';
+import { setValue, Values, setError, resetForm } from '../actions';
 import {
   validateRequired,
   validateMinMax,
@@ -57,8 +57,11 @@ const Form: React.FC = () => {
     dispatch(setError(fieldName, error));
   }
 
-  const handleFormSubmit = () => {
-    console.log('Form submitted!');
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    alert('Form submitted!');
+    dispatch(resetForm());
   }
   
   const isFormValid = (Object.keys(values) as Array<keyof typeof values>)

@@ -28,6 +28,8 @@ export const formReducer = (state: State, action: Actions): State => {
       return {
         ...state,
         errors: { ...state.errors, [errorFieldName]: error } };
+    case 'RESET-FORM':
+      return defaultState;
     default:
       return state;
   }
