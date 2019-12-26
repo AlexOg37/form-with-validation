@@ -3,40 +3,12 @@ import { formReducer, defaultState } from '../formReducer';
 import { setValue, Values, setError, resetForm } from '../actions';
 import {
   validateRequired,
-  validateMinMax,
-  validateCapitalLetter,
-  validateLatinLetters,
-  validateDateFormat
+  validateDOBField,
+  getExpirationFieldValidation,
+  validateName,
+  validatePassport,
 } from '../validation/validation';
 import FormPresentation, { Validation } from './FormPresentation';
-import { minAgeError, maxAgeError } from '../validation/errorMessages';
-import { validateMinAge, validateMaxAge, minAge, maxAge } from '../validation/minMaxAge';
-import { validateExpirationDate } from '../validation/expirationDate';
-import { parseDate } from '../validation/dateFormat';
-
-const validateName = (value: string): string => {
-  return validateRequired(value) || validateMinMax(2, 10)(value) ||
-    validateCapitalLetter(value) || validateLatinLetters(value);
-}
-
-const validatePassport = (value: string): string => {
-  return validateRequired(value) || validateMinMax(6, 9)(value);
-}
-
-const validateDateFields = (date: string): string => {
-  return validateRequired(date) || validateDateFormat(date);
-}
-
-const validateDOBField = (dob: string): string => {
-  return validateDateFields(dob) || validateMinAge(minAge, minAgeError)(dob) ||
-    validateMaxAge(maxAge, maxAgeError)(dob);
-}
-
-const getExpirationFieldValidation = (dob: string) =>
-  (expirationDate: string) => {
-    return validateDateFields(expirationDate) ||
-      validateExpirationDate(dob, parseDate().format())(expirationDate);
-  }
 
 const Form: React.FC = () => {
   const [state, dispatch] = useReducer(formReducer, defaultState);
